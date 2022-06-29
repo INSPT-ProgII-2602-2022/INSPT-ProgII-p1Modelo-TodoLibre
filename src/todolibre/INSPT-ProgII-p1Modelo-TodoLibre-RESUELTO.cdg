@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Multi-file class diagram">
+  <ClassDiagramComponents>
+    <Class name="Domicilio" package="Examen" visibility="public" xPosition="951.0" yPosition="381.0">
+      <Fields>
+        <Field name="calle" type="String" visibility="private"/>
+        <Field name="altura" type="String" visibility="private"/>
+        <Field name="numComuna" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="calle"/>
+          <Argument type="String" name="altura"/>
+          <Argument type="int" name="numComuna"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getNumComuna" returnType="int" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="OrdenDeCompra" package="Examen" visibility="public" isAbstract="true" xPosition="125.0" yPosition="338.0">
+      <Fields>
+        <Field name="numero" type="int" visibility="private"/>
+        <Field name="monto" type="double" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="numero"/>
+          <Argument type="double" name="monto"/>
+          <Argument type="Usuario" name="vendedor"/>
+          <Argument type="Usuario" name="comprador"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getDomicilioOrigen" returnType="Domicilio" visibility="public"/>
+        <Method name="getComprador" returnType="Usuario" visibility="public"/>
+        <Method name="mismaComunaDestinoPartida" returnType="boolean" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="OrdenPuertaAPuerta" package="Examen" visibility="public" xPosition="54.0" yPosition="650.0">
+      <Fields>
+        <Field name="envioGratis" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="boolean" name="envioGratis"/>
+          <Argument type="int" name="numero"/>
+          <Argument type="double" name="monto"/>
+          <Argument type="Usuario" name="vendedor"/>
+          <Argument type="Usuario" name="comprador"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getDomicilioDestino" returnType="Domicilio" visibility="public"/>
+        <Method name="hasEnvioGratis" returnType="boolean" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="OrdenRetiroEnPersona" package="Examen" visibility="public" xPosition="172.0" yPosition="650.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Sucursal" name="sucursal"/>
+          <Argument type="int" name="numero"/>
+          <Argument type="double" name="monto"/>
+          <Argument type="Usuario" name="vendedor"/>
+          <Argument type="Usuario" name="comprador"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getDomicilioDestino" returnType="Domicilio" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Sucursal" package="Examen" visibility="public" xPosition="972.0" yPosition="669.0">
+      <Fields>
+        <Field name="nombre" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="nombre"/>
+          <Argument type="Domicilio" name="domicilio"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getDomicilio" returnType="Domicilio" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="TodoLibre" package="Examen" visibility="public" xPosition="223.0" yPosition="68.0">
+      <Fields>
+        <Field name="usuarios" type="ArrayList&lt;Usuario&gt;" visibility="private"/>
+        <Field name="ordenesDeCompra" type="ArrayList&lt;OrdenDeCompra&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="porcentajeMismasComunas" returnType="double" visibility="public"/>
+        <Method name="cantPuertaAPuertaGratis" returnType="int" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Usuario" package="Examen" visibility="public" xPosition="785.0" yPosition="104.0">
+      <Fields>
+        <Field name="ID" type="String" visibility="private"/>
+        <Field name="nombre" type="String" visibility="private"/>
+        <Field name="apellido" type="String" visibility="private"/>
+        <Field name="mail" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="ID"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="String" name="apellido"/>
+          <Argument type="String" name="mail"/>
+          <Argument type="Domicilio" name="domicilio"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getDomicilio" returnType="Domicilio" visibility="public"/>
+      </Methods>
+    </Class>
+    <Interface name="Entregable" package="Examen" visibility="public" xPosition="726.0" yPosition="425.0">
+      <Methods>
+        <Method name="getDomicilioOrigen" returnType="Domicilio" visibility="public"/>
+        <Method name="getDomicilioDestino" returnType="Domicilio" visibility="public"/>
+      </Methods>
+    </Interface>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="sucursal" source="Examen.OrdenRetiroEnPersona" target="Examen.Sucursal" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="ordenesDeCompra" source="Examen.TodoLibre" target="Examen.OrdenDeCompra" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;OrdenDeCompra&gt;"/>
+    <HasRelation name="domicilio" source="Examen.Sucursal" target="Examen.Domicilio" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="vendedor" source="Examen.OrdenDeCompra" target="Examen.Usuario" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="Examen.OrdenPuertaAPuerta" target="Examen.OrdenDeCompra"/>
+    <HasRelation name="usuarios" source="Examen.TodoLibre" target="Examen.Usuario" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Usuario&gt;"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Examen.OrdenDeCompra" target="Examen.Entregable"/>
+    <IsRelation name="is" source="Examen.OrdenRetiroEnPersona" target="Examen.OrdenDeCompra"/>
+    <HasRelation name="domicilio" source="Examen.Usuario" target="Examen.Domicilio" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="comprador" source="Examen.OrdenDeCompra" target="Examen.Usuario" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
